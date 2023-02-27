@@ -1,6 +1,6 @@
 const highlightColor = "rgb(213, 234, 255)";
 
-const template = `
+const highlightTemplate = `
   <template id="highlightTemplate">
     <span class="highlight" style="background-color: ${highlightColor}; display: inline"></span>
   </template>
@@ -10,7 +10,7 @@ const template = `
   </button>
 `;
 
-const styled = ({ display = "none", left = 0, top = 0 }) => `
+const highlightStyled = ({ display = "none", left = 0, top = 0 }) => `
   #highlightingButton {
     align-items: center;
     background-color: black;
@@ -59,9 +59,9 @@ class HighlighterClass extends HTMLElement {
   render() {
     this.attachShadow({ mode: "open" });
     const style = document.createElement("style");
-    style.textContent = styled({});
+    style.textContent = highlightStyled({});
     this.shadowRoot.appendChild(style);
-    this.shadowRoot.innerHTML += template;
+    this.shadowRoot.innerHTML += highlightTemplate;
     this.shadowRoot
       .getElementById("highlightingButton")
       .addEventListener("click", () => this.highlightSelection());
@@ -69,7 +69,7 @@ class HighlighterClass extends HTMLElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === "markerPosition") {
-      this.styleElement.textContent = styled(this.markerPosition);
+      this.styleElement.textContent = highlightStyled(this.markerPosition);
     }
   }
 
